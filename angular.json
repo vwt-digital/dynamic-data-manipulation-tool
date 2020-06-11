@@ -2,5 +2,49 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "ddmt-lib": {
+      "projectType": "library",
+      "root": "projects/ddmt-lib",
+      "sourceRoot": "projects/ddmt-lib/src",
+      "prefix": "dat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ddmt-lib/tsconfig.lib.json",
+            "project": "projects/ddmt-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ddmt-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ddmt-lib/src/test.ts",
+            "tsConfig": "projects/ddmt-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ddmt-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ddmt-lib/tsconfig.lib.json",
+              "projects/ddmt-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": "d5f1f6cb-d7f8-4d65-8f4f-58d64988cbb3"
+  },
+  "defaultProject": "ddmt-lib"
 }
