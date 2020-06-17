@@ -1,0 +1,16 @@
+// @import "~ag-grid-community/src/styles/ag-grid.scss";
+// @import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
+// @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-grid.scss";
+// @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss";
+@import "../../ddmt-lib/node_modules/ag-grid-community/dist/styles/ag-grid.css";
+@import "../../ddmt-lib/node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
+// .ag-theme-balham {
+//     @include ag-theme-balham();
+// }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
