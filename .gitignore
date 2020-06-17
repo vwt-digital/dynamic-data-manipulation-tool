@@ -4,6 +4,9 @@
 environment.ts
 environment.prod.ts
 
+# remove package-lock due to trufflehog giving high-entropy warnings.
+package-lock.json
+
 # compiled output
 /dist
 /tmp
