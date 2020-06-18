@@ -1,8 +1,9 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { LicenseManager } from 'ag-grid-enterprise';
 import { GridOptions } from 'ag-grid-community';
 import { DataGrid } from '../classes/datagrid';
 import { DDMTLibService } from '../ddmt-lib.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'dat-ddmt-grid',
@@ -11,7 +12,7 @@ import { DDMTLibService } from '../ddmt-lib.service';
     './ddmt-grid.component.scss',
   ]
 })
-export class DDMTGridComponent implements OnInit {
+export class DDMTGridComponent implements OnInit, AfterViewInit {
   @ViewChild('grid') grid: GridOptions;
 
   @Input() authentication: string;
@@ -33,8 +34,17 @@ export class DDMTGridComponent implements OnInit {
   ngOnInit(): void {
     LicenseManager.setLicenseKey(this.agGridAPIKey);
     this.gridOptions = DataGrid.GetDefaults(this.gridName);
-    this.ddmtLibService.retrieveColumnDefs(this.apiUrl, this.entityName).subscribe(columnDefs => {
-      this.gridOptions.api.setColumnDefs(columnDefs);
+    this.ddmtLibService.setApiSpec(this.apiUrl, this.entityName);
+    this.ddmtLibService.apiSpec.pipe(first()).subscribe(apiSpec => {
+      this.gridOptions.api.setColumnDefs(apiSpec.colDefs);
     });
+
+    // this.ddmtLibService.retrieveAllData(this.apiUrl, this.authentication).subscribe(data => {
+    //   this.gridOptions.api.setRowData(data);
+    // });
+  }
+
+  ngAfterViewInit(): void {
+    this.gridOptions.api.setRowData(this.rowData);
   }
 }
