@@ -24,9 +24,6 @@ export class DDMTGridComponent implements OnInit {
 
   gridOptions: GridOptions;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columnDefs: any;
-
   rowData = [
     { administration: 'Local', business_unit: 'Test', city: 'Amersfoort' },
     { administration: 'Local', business_unit: 'Test', city: 'Amersfoort' },
@@ -36,9 +33,8 @@ export class DDMTGridComponent implements OnInit {
   ngOnInit(): void {
     LicenseManager.setLicenseKey(this.agGridAPIKey);
     this.gridOptions = DataGrid.GetDefaults(this.gridName);
-    this.ddmtLibService.retrieveColumnDefs(this.apiUrl, this.entityName)
-      .subscribe(columnDefs => {
-        this.columnDefs = columnDefs;
-      });
+    this.ddmtLibService.retrieveColumnDefs(this.apiUrl, this.entityName).subscribe(columnDefs => {
+      this.gridOptions.api.setColumnDefs(columnDefs);
+    });
   }
 }

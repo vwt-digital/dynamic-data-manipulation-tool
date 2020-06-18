@@ -9,8 +9,9 @@ import { ColumnDefHelper } from './utils/columndefs.helper';
 export class DDMTLibService {
   constructor(private http: HttpClient) { }
 
-  retrieveColumnDefs(apiUrl: string, entityName: string): Observable<unknown> {
-    const apiSpec = this.http.get(`${apiUrl}/openapi.json`)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  retrieveColumnDefs(apiUrl: string, entityName: string): Observable<any> {
+    const apiSpec = this.http.get(`${apiUrl}/openapi.json`);
     return ColumnDefHelper.convertSpecToColDefs(apiSpec, entityName);
   }
 

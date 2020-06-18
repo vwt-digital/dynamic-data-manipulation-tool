@@ -79,7 +79,6 @@ export class DataGrid {
         enableRowGroup: true,
         enablePivot: true,
       },
-      // rowData: [],
       enableRangeSelection: true,
       pagination: true,
       paginationPageSize: 30,
