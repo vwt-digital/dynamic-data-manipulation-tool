@@ -2,11 +2,8 @@
 // @import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
 // @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-grid.scss";
 // @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss";
-@import "../../ddmt-lib/node_modules/ag-grid-community/dist/styles/ag-grid.css";
-@import "../../ddmt-lib/node_modules/ag-grid-community/dist/styles/ag-theme-balham.css";
-// .ag-theme-balham {
-//     @include ag-theme-balham();
-// }
+@import "~ag-grid-community/dist/styles/ag-grid.css";
+@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
 html, body {
   margin: 0;

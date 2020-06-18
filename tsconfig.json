@@ -17,8 +17,7 @@
     ],
     "paths": {
       "ddmt-lib": [
-        "dist/ddmt-lib/ddmt-lib",
-        "dist/ddmt-lib"
+        "projects/ddmt-lib/src/public-api.ts"
       ]
     }
   },

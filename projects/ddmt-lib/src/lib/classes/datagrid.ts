@@ -12,6 +12,9 @@ export class DataGrid {
     gridName: string,
     saveGridState = true
   ): GridOptions {
+    if (!gridName) {
+      throw new Error('gridName must be specified');
+    }
 
     let gridOptions: GridOptions = null;
 
@@ -76,7 +79,7 @@ export class DataGrid {
         enableRowGroup: true,
         enablePivot: true,
       },
-      rowData: [],
+      // rowData: [],
       enableRangeSelection: true,
       pagination: true,
       paginationPageSize: 30,

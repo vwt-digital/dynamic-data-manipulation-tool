@@ -9,7 +9,6 @@ import { DDMTLibService } from '../ddmt-lib.service';
   templateUrl: './ddmt-grid.component.html',
   styleUrls: [
     './ddmt-grid.component.scss',
-    // '../../../node_modules/ag-grid-community/dist/styles/ag-grid.css'
   ]
 })
 export class DDMTGridComponent implements OnInit {
@@ -19,14 +18,14 @@ export class DDMTGridComponent implements OnInit {
   @Input() apiUrl: string;
   @Input() agGridAPIKey: string;
   @Input() entityName: string;
-  @Input() gridName: string
+  @Input() gridName: string;
 
   constructor(private ddmtLibService: DDMTLibService) {  }
 
-  gridOptions: GridOptions = DataGrid.GetDefaults(this.gridName);
+  gridOptions: GridOptions;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  columnDefs: any
+  columnDefs: any;
 
   rowData = [
     { administration: 'Local', business_unit: 'Test', city: 'Amersfoort' },
@@ -36,9 +35,10 @@ export class DDMTGridComponent implements OnInit {
 
   ngOnInit(): void {
     LicenseManager.setLicenseKey(this.agGridAPIKey);
+    this.gridOptions = DataGrid.GetDefaults(this.gridName);
     this.ddmtLibService.retrieveColumnDefs(this.apiUrl, this.entityName)
       .subscribe(columnDefs => {
-        this.columnDefs = columnDefs
+        this.columnDefs = columnDefs;
       });
   }
 }
