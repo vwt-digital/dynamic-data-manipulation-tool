@@ -16,7 +16,7 @@ export class CheckboxCellComponent implements ICellRendererAngularComp {
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
-    this.disabled = !this.params.colDef.editable
+    this.disabled = !this.params.colDef.editable;
   }
 
   refresh(): boolean {
