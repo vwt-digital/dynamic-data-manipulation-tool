@@ -3,6 +3,15 @@
   "version": "0.0.1",
   "description": "The Dynamic Data Manipulation Tool Angular libary.",
   "author": "Selene Blok <selene.blok@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vwt-digital/dynamic-data-manipulation-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vwt-digital/dynamic-data-manipulation-tool/issues"
+  },
+  "homepage": "https://github.com/vwt-digital/dynamic-data-manipulation-tool",
+  "license": "MIT",
   "scripts": {
     "build": "ng build --prod"
   },
