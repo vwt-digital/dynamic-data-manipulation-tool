@@ -1,24 +1,8 @@
-# DdmtLib
+# DDMT-lib
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+This package creates an AG-grid that is dynamically generated based on an OpenAPI specification and a few component inputs.
 
-## Code scaffolding
+When installing the package please make sure to also install the peerDependencies since
+they are not installed automatically.
 
-Run `ng generate component component-name --project ddmt-lib` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project ddmt-lib`.
-> Note: Don't forget to add `--project ddmt-lib` or else it will be added to the default project in your `angular.json` file. 
-
-## Build
-
-Run `ng build ddmt-lib` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build ddmt-lib`, go to the dist folder `cd dist/ddmt-lib` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test ddmt-lib` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+For more information please clone the repo and run it using `ng serve` to see an example project.
