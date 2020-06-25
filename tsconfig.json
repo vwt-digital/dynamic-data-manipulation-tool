@@ -16,7 +16,7 @@
       "dom"
     ],
     "paths": {
-      "ddmt-lib": [
+      "@vwt-digital/ddmt-lib": [
         "projects/ddmt-lib/src/public-api.ts"
       ]
     }
