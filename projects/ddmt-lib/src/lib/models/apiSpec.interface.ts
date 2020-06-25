@@ -1,7 +1,7 @@
 import { ColDef } from 'ag-grid-community';
-import { Operation } from './operation.interface';
 
 export interface APISpec {
-  operations: Record<string, Operation>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  operations: Record<string, any>;
   colDefs: ColDef[];
 }

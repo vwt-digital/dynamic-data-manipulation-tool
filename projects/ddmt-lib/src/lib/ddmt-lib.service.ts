@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { convertAPISpec } from './utils/apispec.helper';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { APISpec } from './models/apiSpec.interface';
+import * as pluralize from 'pluralize';
 
 @Injectable({
   providedIn: 'root'
@@ -23,15 +24,14 @@ export class DDMTLibService {
     );
   }
 
-  retrieveAllData(apiUrl: string, token: string): Observable<any> {
-    const x = this.apiSpec.pipe(switchMap(apiSpec => {
-      const headers = new HttpHeaders({
-        Authorization: `Bearer ${token}`
-      });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  retrieveAllData(apiUrl: string, token: string, entityName: string): Observable<any> {
+    const pluralEntityName = pluralize(entityName.toLowerCase(), 2);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
 
-      return this.http.get(`${apiUrl}${apiSpec.operations.generic_get_multiple.endpoint}`, { headers });
-    }));
-    x.subscribe(console.log);
-    return x
+    return this.http.get(`${apiUrl}/${pluralEntityName}`, { headers })
+      .pipe(map(res => res[pluralEntityName]));
   }
 }

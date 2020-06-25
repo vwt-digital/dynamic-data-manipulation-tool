@@ -25,12 +25,6 @@ export class DDMTGridComponent implements OnInit, AfterViewInit {
 
   gridOptions: GridOptions;
 
-  rowData = [
-    { administration: 'Local', business_unit: 'Test', city: 'Amersfoort' },
-    { administration: 'Local', business_unit: 'Test', city: 'Amersfoort' },
-    { administration: 'Local', business_unit: 'Test', city: 'Amersfoort', skills_asfalt_zagen: true }
-  ];
-
   ngOnInit(): void {
     LicenseManager.setLicenseKey(this.agGridAPIKey);
     this.gridOptions = DataGrid.GetDefaults(this.gridName);
@@ -39,12 +33,10 @@ export class DDMTGridComponent implements OnInit, AfterViewInit {
       this.gridOptions.api.setColumnDefs(apiSpec.colDefs);
     });
 
-    // this.ddmtLibService.retrieveAllData(this.apiUrl, this.authentication).subscribe(data => {
-    //   this.gridOptions.api.setRowData(data);
-    // });
   }
 
   ngAfterViewInit(): void {
-    this.gridOptions.api.setRowData(this.rowData);
+    this.ddmtLibService.retrieveAllData(this.apiUrl, this.authentication, this.entityName)
+      .subscribe(data => this.gridOptions.api.setRowData(data));
   }
 }

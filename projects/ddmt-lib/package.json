@@ -11,7 +11,8 @@
     "@angular/core": "^9.1.9",
     "ag-grid-angular": "^23.2.0",
     "ag-grid-community": "^23.2.0",
-    "ag-grid-enterprise": "^23.2.0"
+    "ag-grid-enterprise": "^23.2.0",
+    "pluralize": "^8.0.0"
   },
   "dependencies": {
     "tslib": "^1.10.0"
