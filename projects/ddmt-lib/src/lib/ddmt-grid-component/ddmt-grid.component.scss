@@ -1,6 +1,34 @@
-.grid {
-  box-sizing: border-box;
+
+
+.container {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: 1fr;
   height: 100%;
-  width: 100%;
   padding: 25px;
+  box-sizing: border-box;
+
+  .table {
+    height: 100%;
+
+    .grid {
+      height: inherit;
+      width: 100%;
+    }
+  }
+}
+
+button {
+  padding: 10px;
+  border-radius: 3px;
+  color: #fff;
+  font-family: Poppins,sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  border: none;
+  margin: 0 10px 20px 0;
+  text-align: center;
+  background: var(--ddmt-theme-color);
 }

@@ -24,6 +24,6 @@ export class CheckboxCellComponent implements ICellRendererAngularComp {
   }
 
   public onChange(event: any): void {
-    this.params.data[this.params.colDef.field] = event.currentTarget.checked;
+    this.params.setValue(event.currentTarget.checked);
   }
 }

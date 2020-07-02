@@ -1,6 +1,14 @@
-<ag-grid-angular
-  #grid
-  class="ag-theme-balham grid"
-  [gridOptions]="gridOptions"
-  (cellValueChanged)="syncToServer($event)">
-</ag-grid-angular>
+<div class="container">
+  <div class="header">
+    <button class="create-new-row" (click)="createNewRow()">Create new row</button>
+    <button class="create-new-row" (click)="setData()">Refresh</button>
+  </div>
+  <div class="table">
+    <ag-grid-angular
+      #grid
+      [ngClass]="[theme, 'grid']"
+      [gridOptions]="gridOptions"
+      (cellValueChanged)="syncToServer($event)">
+    </ag-grid-angular>
+  </div>
+</div>

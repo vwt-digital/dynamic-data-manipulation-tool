@@ -1,7 +1,3 @@
-// @import "~ag-grid-community/src/styles/ag-grid.scss";
-// @import "~ag-grid-community/src/styles/ag-theme-alpine/sass/ag-theme-alpine-mixin.scss";
-// @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-grid.scss";
-// @import "../../ddmt-lib/node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham-mixin.scss";
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
@@ -11,3 +7,6 @@ html, body {
   width: 100%;
 }
 
+:root {
+  --ddmt-theme-color: #008bb8;
+}

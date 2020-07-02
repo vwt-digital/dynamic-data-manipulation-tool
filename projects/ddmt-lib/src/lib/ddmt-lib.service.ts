@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { convertAPISpec, capitalize } from './utils/apispec.helper';
 import { map, shareReplay } from 'rxjs/operators';
-import { APISpec } from './models/apiSpec.interface';
 import * as pluralize from 'pluralize';
+
+import { convertAPISpec, capitalize } from './utils/apispec.helper';
+import { APISpec } from './models/apiSpec.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -63,6 +64,31 @@ export class DDMTLibService {
           throw new Error(res.statusText);
         }
       });
+    });
+  }
+
+  /**
+   * Updates a row when a change was detected.
+   * @param apiUrl - The API url of the service.
+   * @param token - The token to authenticate the request with.
+   * @param entityName - The entity name to write the update into.
+   * @param data - The new data to write into the datastore/firestore.
+   */
+  createRow(apiUrl: string, token: string, entityName: string, data: any): void {
+    const pluralEntityName = pluralize(entityName.toLowerCase(), 2);
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    // The empty subscribe is required to trigger a post/put request in angular.
+    this.http.post(
+      `${apiUrl}/${pluralEntityName}`,
+      data,
+      { headers, observe: 'response' }
+    ).subscribe(res => {
+      if (res.statusText !== 'OK') {
+        throw new Error(res.statusText);
+      }
     });
   }
 }

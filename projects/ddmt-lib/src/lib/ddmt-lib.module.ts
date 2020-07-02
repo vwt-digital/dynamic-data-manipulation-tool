@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
-import { DDMTGridComponent } from './ddmt-grid-component/ddmt-grid.component';
-import { AgGridModule } from 'ag-grid-angular';
-import { DDMTLibService } from './ddmt-lib.service';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+
+import { AgGridModule } from 'ag-grid-angular';
+
+import { DDMTGridComponent } from './ddmt-grid-component/ddmt-grid.component';
+import { DDMTLibService } from './ddmt-lib.service';
 import { CheckboxCellComponent } from './utils/checkbox-cell-component/checkbox-cell.component';
 
 @NgModule({
@@ -12,7 +15,8 @@ import { CheckboxCellComponent } from './utils/checkbox-cell-component/checkbox-
   ],
   imports: [
     HttpClientModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    CommonModule
   ],
   providers: [DDMTLibService],
   exports: [DDMTGridComponent]
