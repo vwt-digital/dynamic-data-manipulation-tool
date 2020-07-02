@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { LicenseManager } from 'ag-grid-enterprise';
-import { GridOptions } from 'ag-grid-community';
+import { GridOptions, CellValueChangedEvent } from 'ag-grid-community';
 import { DataGrid } from '../classes/datagrid';
 import { DDMTLibService } from '../ddmt-lib.service';
 import { first } from 'rxjs/operators';
@@ -38,5 +38,14 @@ export class DDMTGridComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.ddmtLibService.retrieveAllData(this.apiUrl, this.authentication, this.entityName)
       .subscribe(data => this.gridOptions.api.setRowData(data));
+  }
+
+  syncToServer(event: CellValueChangedEvent): void {
+    this.ddmtLibService.updateRow(
+      this.apiUrl,
+      this.authentication,
+      this.entityName,
+      event.data
+    );
   }
 }

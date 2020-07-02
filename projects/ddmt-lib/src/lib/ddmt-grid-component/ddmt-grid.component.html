@@ -1,7 +1,6 @@
 <ag-grid-angular
   #grid
   class="ag-theme-balham grid"
-  [gridOptions]="gridOptions">
+  [gridOptions]="gridOptions"
+  (cellValueChanged)="syncToServer($event)">
 </ag-grid-angular>
-
-<!-- [rowData]="rowData" -->

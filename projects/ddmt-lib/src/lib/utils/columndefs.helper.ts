@@ -49,7 +49,7 @@ function schemaToColDefs(schema: any): ColDef[] {
     colDefs.push({
       headerName: namify(key),
       field: key,
-      editable: property.readonly ? property.readonly : false,
+      editable: property.readonly ? property.readonly : true,
       ...setTypeBasedOptions(property.type)
     });
   }
