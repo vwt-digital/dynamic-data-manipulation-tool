@@ -73,7 +73,6 @@ export class DDMTGridComponent implements OnInit, AfterViewInit {
    * @param event - A value change on the grid.
    */
   syncToServer(event: CellValueChangedEvent): void {
-    console.log(event);
     this.ddmtLibService.apiSpec.subscribe(apiSpec => {
       let idProp = capitalize(pluralize(this.entityName, 1));
       const schema = apiSpec.schemas[idProp];
