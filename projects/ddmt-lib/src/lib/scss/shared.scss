@@ -1,0 +1,38 @@
+button {
+  padding: 10px;
+  border-radius: 3px;
+  color: #fff;
+  font-family: Poppins,sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  border: none;
+  margin: 0 10px 20px 0;
+  text-align: center;
+  background: var(--ddmt-theme-color);
+  cursor: pointer;
+
+  &:disabled {
+    background: var(--ddmt-theme-color);
+    filter: grayscale(1);
+    cursor: not-allowed;
+  }
+}
+
+input {
+  padding: 8px;
+  border-radius: 3px;
+  font-family: Poppins,sans-serif;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 12px;
+  border: 1px solid var(--ddmt-theme-color);
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+p {
+  font-family: Poppins,sans-serif;
+}

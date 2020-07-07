@@ -1,7 +1,16 @@
 <div class="container">
   <div class="header">
-    <button class="create-new-row" (click)="createNewRow()">Create new row</button>
-    <button class="create-new-row" (click)="setData()">Refresh</button>
+    <button class="create-new-row" (click)="createNewRow()" [disabled]="inputsDisabled">Create new row</button>
+    <button class="create-new-row" (click)="clearPreferences()" [disabled]="inputsDisabled">Clear Preferences</button>
+    <p class="notification" *ngIf="inputsDisabled">You are not authorized!</p>
+    <dat-ddmt-pagination
+      [disabled]="inputsDisabled"
+      [page]="page | async"
+      [chunkSize]="chunkSize"
+      (refresh)="setData()"
+      (nextAction)=onPaginationChange($event)
+      (chunkSizeChange)="onChunkSizeChange($event)">
+    </dat-ddmt-pagination>
   </div>
   <div class="table">
     <ag-grid-angular

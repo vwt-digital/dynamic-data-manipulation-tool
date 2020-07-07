@@ -57,6 +57,8 @@ export class DataGrid {
         return;
       }
 
+      console.log(state)
+
       localStorage.setItem(`${gridName}-GRID-GROUP-STATE`, JSON.stringify(state));
     };
 
@@ -80,8 +82,6 @@ export class DataGrid {
         enablePivot: true,
       },
       enableRangeSelection: true,
-      pagination: true,
-      paginationPageSize: 30,
       statusBar: {
         statusPanels: [
           { statusPanel: 'agTotalRowCountComponent', align: 'left' },
@@ -112,11 +112,11 @@ export class DataGrid {
           }
         ]
       },
-      onColumnMoved: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
+      onDragStopped: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
       onColumnPinned: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
       onColumnVisible: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
-      onColumnResized: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
       onColumnRowGroupChanged: (ev): void => {
+        console.log(ev.columnApi.getColumnGroupState())
         saveColumnState(ev.columnApi.getColumnState());
         saveColumnGroupState(ev.columnApi.getColumnGroupState());
       },
@@ -125,7 +125,7 @@ export class DataGrid {
         const colGroupState = getColumnGroupState();
 
         if (colState) {
-          ev.columnApi.setColumnState(colState);
+          console.error(ev.columnApi.setColumnState(colState))
         }
 
         if (colGroupState) {
@@ -133,8 +133,6 @@ export class DataGrid {
         }
       }
     };
-
-    gridOptions.rowData = [] as any | any[];
 
     return gridOptions;
   }
@@ -146,9 +144,9 @@ export class DataGrid {
    * @param gridName - The name you would like to give to this grid. (Must be unique in your app)
    */
   static ClearOptions(grid: GridOptions, gridName: string): void {
-    localStorage.removeItem(`${gridName}-GRID-STATE`);
-    localStorage.removeItem(`${gridName}-GRID-GROUP-STATE`);
     grid.columnApi.resetColumnState();
     grid.columnApi.resetColumnGroupState();
+    localStorage.removeItem(`${gridName}-GRID-STATE`);
+    localStorage.removeItem(`${gridName}-GRID-GROUP-STATE`);
   }
 }

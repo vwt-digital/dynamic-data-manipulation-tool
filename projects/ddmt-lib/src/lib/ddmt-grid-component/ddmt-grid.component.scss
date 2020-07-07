@@ -18,17 +18,6 @@
   }
 }
 
-button {
-  padding: 10px;
-  border-radius: 3px;
-  color: #fff;
-  font-family: Poppins,sans-serif;
-  text-transform: uppercase;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 12px;
-  border: none;
-  margin: 0 10px 20px 0;
-  text-align: center;
-  background: var(--ddmt-theme-color);
+.notification {
+  display: inline;
 }
