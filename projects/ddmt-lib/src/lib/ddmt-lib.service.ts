@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
 import { map, shareReplay } from 'rxjs/operators';
-import * as pluralize from 'pluralize';
+import pluralize from 'pluralize';
 
 import { convertAPISpec, capitalize } from './utils/apispec.helper';
 import { APISpec } from './models/apiSpec.interface';

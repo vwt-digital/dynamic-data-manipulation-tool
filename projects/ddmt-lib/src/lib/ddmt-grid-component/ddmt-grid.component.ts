@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { LicenseManager } from 'ag-grid-enterprise';
 import { GridOptions, ColDef, CellValueChangedEvent } from 'ag-grid-community';
 import { AgGridAngular } from 'ag-grid-angular';
-import * as pluralize from 'pluralize';
+import pluralize from 'pluralize';
 
 import { DataGrid } from '../classes/datagrid';
 import { DDMTLibService } from '../ddmt-lib.service';
