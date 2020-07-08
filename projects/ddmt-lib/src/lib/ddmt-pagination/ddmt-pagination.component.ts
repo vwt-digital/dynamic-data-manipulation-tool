@@ -1,18 +1,26 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'dat-ddmt-pagination',
   templateUrl: './ddmt-pagination.component.html',
   styleUrls: ['./ddmt-pagination.component.scss', '../scss/shared.scss']
 })
-export class DDMTPaginationComponent {
+export class DDMTPaginationComponent implements OnInit {
   @Input() disabled = false;
   @Input() page: { next: string, previous: string };
   @Input() pageIdx = 1;
-  @Input() chunkSize: number;
+  @Input() gridName: string;
   @Output() nextAction: EventEmitter<string> = new EventEmitter<string>();
-  @Output() chunkSizeChange: EventEmitter<number> = new EventEmitter<number>();
   @Output() refresh: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  chunkSize = 30;
+
+  ngOnInit(): void {
+    const savedChunkSize = localStorage.getItem(`${this.gridName}-GRID-CHUNK-SIZE`);
+    if (savedChunkSize) {
+      this.chunkSize = JSON.parse(savedChunkSize);
+    }
+  }
 
   /**
    * Called when wanting to navigate to the next page.
@@ -28,7 +36,7 @@ export class DDMTPaginationComponent {
    * Called when wanting to navigate to the previous page.
    */
   previousPage(): void {
-    if (this.page.previous) {
+    if (this.page.previous && this.pageIdx !== 1) {
       this.nextAction.emit(this.page.previous);
       this.pageIdx--;
     }
@@ -46,6 +54,7 @@ export class DDMTPaginationComponent {
    * Called when changing the chunk size
    */
   confirmChunkSize(): void {
-    this.chunkSizeChange.emit(this.chunkSize);
+    localStorage.setItem(`${this.gridName}-GRID-CHUNK-SIZE`, JSON.stringify(this.chunkSize));
+    this.requestRefresh();
   }
 }

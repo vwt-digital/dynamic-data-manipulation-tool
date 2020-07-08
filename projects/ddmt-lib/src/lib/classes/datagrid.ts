@@ -42,37 +42,6 @@ export class DataGrid {
       return JSON.parse(localStorage.getItem(`${gridName}-GRID-STATE`));
     };
 
-    type ColGroupState = {
-      groupId: string;
-      open: boolean;
-    }[];
-
-    /**
-     * Saves' a column group's state to localstorage.
-     *
-     * @param state - The internal state of the column group.
-     */
-    const saveColumnGroupState = (state: ColGroupState): void => {
-      if (gridOptions === null || gridOptions === undefined || !saveGridState) {
-        return;
-      }
-
-      console.log(state)
-
-      localStorage.setItem(`${gridName}-GRID-GROUP-STATE`, JSON.stringify(state));
-    };
-
-    /**
-     * Retrieves' a column group's state from localstorage.
-     */
-    const getColumnGroupState = (): void | ColGroupState => {
-      if (gridOptions === null || gridOptions === undefined || !saveGridState) {
-        return;
-      }
-
-      return JSON.parse(localStorage.getItem(`${gridName}-GRID-GROUP-STATE`));
-    };
-
     gridOptions = {
       defaultColDef: {
         sortable: true,
@@ -82,6 +51,7 @@ export class DataGrid {
         enablePivot: true,
       },
       enableRangeSelection: true,
+      animateRows: false,
       statusBar: {
         statusPanels: [
           { statusPanel: 'agTotalRowCountComponent', align: 'left' },
@@ -116,20 +86,13 @@ export class DataGrid {
       onColumnPinned: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
       onColumnVisible: (ev): void => saveColumnState(ev.columnApi.getColumnState()),
       onColumnRowGroupChanged: (ev): void => {
-        console.log(ev.columnApi.getColumnGroupState())
         saveColumnState(ev.columnApi.getColumnState());
-        saveColumnGroupState(ev.columnApi.getColumnGroupState());
       },
       onGridReady: (ev): void => {
         const colState = getColumnState();
-        const colGroupState = getColumnGroupState();
 
         if (colState) {
           console.error(ev.columnApi.setColumnState(colState))
-        }
-
-        if (colGroupState) {
-          ev.columnApi.setColumnGroupState(colGroupState);
         }
       }
     };
@@ -145,8 +108,7 @@ export class DataGrid {
    */
   static ClearOptions(grid: GridOptions, gridName: string): void {
     grid.columnApi.resetColumnState();
-    grid.columnApi.resetColumnGroupState();
     localStorage.removeItem(`${gridName}-GRID-STATE`);
-    localStorage.removeItem(`${gridName}-GRID-GROUP-STATE`);
+    localStorage.removeItem(`${gridName}-GRID-CHUNK-SIZE`);
   }
 }

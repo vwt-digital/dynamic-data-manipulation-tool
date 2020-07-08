@@ -19,11 +19,13 @@ export class DDMTLibService {
    * Sets the api spec for this service.
    * @param apiUrl - The API url of the service.
    */
-  setApiSpec(apiUrl: string, entityName: string): void {
+  setApiSpec(apiUrl: string, entityName: string): Observable<APISpec> {
     this.apiSpec = this.http.get(`${apiUrl}/openapi.json`).pipe(
       map(apiSpec => convertAPISpec(apiSpec, entityName)),
       shareReplay(1),
     );
+
+    return this.apiSpec;
   }
 
   /**

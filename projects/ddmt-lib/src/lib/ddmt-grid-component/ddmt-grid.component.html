@@ -6,17 +6,18 @@
     <dat-ddmt-pagination
       [disabled]="inputsDisabled"
       [page]="page | async"
-      [chunkSize]="chunkSize"
+      [gridName]="gridName"
       (refresh)="setData()"
-      (nextAction)=onPaginationChange($event)
-      (chunkSizeChange)="onChunkSizeChange($event)">
+      (nextAction)="setData($event)">
     </dat-ddmt-pagination>
   </div>
   <div class="table">
     <ag-grid-angular
-      #grid
+      #agGrid
       [ngClass]="[theme, 'grid']"
       [gridOptions]="gridOptions"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
       (cellValueChanged)="syncToServer($event)">
     </ag-grid-angular>
   </div>

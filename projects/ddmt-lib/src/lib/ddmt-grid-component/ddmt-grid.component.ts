@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { LicenseManager } from 'ag-grid-enterprise';
-import { GridOptions, CellValueChangedEvent } from 'ag-grid-community';
+import { GridOptions, ColDef, CellValueChangedEvent } from 'ag-grid-community';
+import { AgGridAngular } from 'ag-grid-angular';
 import * as pluralize from 'pluralize';
 
 import { DataGrid } from '../classes/datagrid';
@@ -17,7 +18,8 @@ import { BehaviorSubject } from 'rxjs';
   ]
 })
 export class DDMTGridComponent implements OnInit {
-  @ViewChild('grid') grid: GridOptions;
+  @ViewChild('agGrid') agGrid: AgGridAngular;
+  gridOptions: GridOptions;
 
   /**
    * The `theme` input allows for setting an ag-grid theme.
@@ -31,31 +33,26 @@ export class DDMTGridComponent implements OnInit {
   @Input() entityName: string;
   @Input() gridName: string;
 
+  rowData: any;
+  columnDefs: ColDef[];
+
   inputsDisabled: boolean;
-  chunkSize: number;
   page: BehaviorSubject<{ next: string, previous: string }> = new BehaviorSubject({
     next: null,
     previous: null
   });
 
-  datagridDefaults = DataGrid;
-
-  constructor(private ddmtLibService: DDMTLibService) {  }
-
-  gridOptions: GridOptions;
+  constructor(private ddmtLibService: DDMTLibService) { }
 
   ngOnInit(): void {
-    this.chunkSize = JSON.parse(localStorage.getItem(`${this.gridName}-GRID-CHUNK-SIZE`)) || 30;
-
-    LicenseManager.setLicenseKey(this.agGridAPIKey);
-    this.gridOptions = DataGrid.GetDefaults(this.gridName);
-    this.ddmtLibService.setApiSpec(this.apiUrl, this.entityName);
+    // Initialize the grid
     this.checkTheme();
+    LicenseManager.setLicenseKey(this.agGridAPIKey);
 
-    this.ddmtLibService.apiSpec.subscribe(apiSpec => {
-      this.gridOptions.api.setColumnDefs(apiSpec.colDefs);
-    });
-
+    // Set grid options
+    this.gridOptions = DataGrid.GetDefaults(this.gridName);
+    this.ddmtLibService.setApiSpec(this.apiUrl, this.entityName)
+      .subscribe(apiSpec => this.columnDefs = apiSpec.colDefs);
     this.setData();
   }
 
@@ -63,8 +60,7 @@ export class DDMTGridComponent implements OnInit {
    * Clear the grid preferences.
    */
   clearPreferences(): void {
-    DataGrid.ClearOptions(this.gridOptions, this.gridName);
-    localStorage.removeItem(`${this.gridName}-GRID-CHUNK-SIZE`);
+    DataGrid.ClearOptions(this.agGrid.gridOptions, this.gridName);
     this.setData();
   }
 
@@ -91,24 +87,6 @@ export class DDMTGridComponent implements OnInit {
   }
 
   /**
-   * Handles pagination changes like previous page and next page.
-   * @param url - The url of the page to retrieve data from.
-   */
-  onPaginationChange(url: string): void {
-    this.setData(url);
-  }
-
-  /**
-   * This function sets the chunkSize in localstorage.
-   * A higher chunk size allows for better filtering and sorting but costs more resources.
-   * @param chunkSize - The size of chunks to retrieve from the server.
-   */
-  onChunkSizeChange(chunkSize: number): void {
-    localStorage.setItem(`${this.gridName}-GRID-CHUNK-SIZE`, JSON.stringify(chunkSize));
-    this.setData();
-  }
-
-  /**
    * This functions fills the grid with fresh data from the api.
    */
   setData(URL?: string): void {
@@ -119,26 +97,20 @@ export class DDMTGridComponent implements OnInit {
       this.gridName,
       URL
     ).subscribe(
-        data => {
-          this.gridOptions.api.setRowData(data.results);
-          this.page.next({
-            next: data.next_page,
-            previous: data.prev_page
-          });
-        },
-        (err) => {
-          if (err.status === 401 || err.status === 403) {
-            this.disableAuthorizedActions();
-          }
+      data => {
+        this.rowData = data.results;
+        this.page.next({
+          next: data.next_page,
+          previous: data.prev_page
+        });
+      },
+      (err) => {
+        const AuthHTTPCodes = [401, 403];
+        if (AuthHTTPCodes.includes(err.status)) {
+          this.inputsDisabled = true;
         }
-      );
-  }
-
-  /**
-   * Disables buttons and inputs that require authentication.
-   */
-  disableAuthorizedActions(): void {
-    this.inputsDisabled = true;
+      }
+    );
   }
 
   /**
@@ -148,11 +120,11 @@ export class DDMTGridComponent implements OnInit {
    */
   syncToServer(event: CellValueChangedEvent): void {
     this.ddmtLibService.apiSpec.subscribe(apiSpec => {
-      let idProp = capitalize(pluralize(this.entityName, 1));
-      const schema = apiSpec.schemas[idProp];
-      idProp = schema['x-db-table-id'];
+      const entity = capitalize(pluralize(this.entityName, 1));
+      const schema = apiSpec.schemas[entity];
+      const id = schema['x-db-table-id'];
 
-      if (event.data[idProp]) {
+      if (event.data[id]) {
         // If id exists do a put (update the data)
         this.ddmtLibService.updateRow(
           this.apiUrl,
@@ -188,6 +160,6 @@ export class DDMTGridComponent implements OnInit {
    */
   createNewRow(): void {
     const newRow = {};
-    this.gridOptions.api.applyTransaction({ add: [newRow] });
+    this.agGrid.api.applyTransaction({ add: [newRow] });
   }
 }

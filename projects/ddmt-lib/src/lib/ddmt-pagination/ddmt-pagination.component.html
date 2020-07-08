@@ -11,7 +11,7 @@
     <button [disabled]="disabled" type="submit" (click)="confirmChunkSize()">Set chunk size</button>
   </div>
   <button (click)="requestRefresh()" [disabled]="disabled">Refresh</button>
-  <button class="back" [disabled]="!page.previous || disabled" (click)="previousPage()"><</button>
+  <button class="back" [disabled]="!page.previous || pageIdx === 1 || disabled" (click)="previousPage()"><</button>
   <button class="unclickable">CHUNK {{pageIdx}} OF MANY</button>
   <button class="forward" [disabled]="!page.next || disabled" (click)="nextPage()">></button>
 </div>
