@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { LicenseManager } from 'ag-grid-enterprise';
-import { GridOptions, ColDef, CellValueChangedEvent } from 'ag-grid-community';
-import { AgGridAngular } from 'ag-grid-angular';
+import { GridOptions, ColDef, CellValueChangedEvent, CellEditingStoppedEvent } from 'ag-grid-community';
 import pluralize from 'pluralize';
 
 import { DataGrid } from '../classes/datagrid';
@@ -18,7 +17,7 @@ import { BehaviorSubject } from 'rxjs';
   ]
 })
 export class DDMTGridComponent implements OnInit {
-  @ViewChild('agGrid', { static: true }) agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: false }) agGrid;
   gridOptions: GridOptions;
 
   /**
@@ -32,6 +31,9 @@ export class DDMTGridComponent implements OnInit {
   @Input() agGridAPIKey: string;
   @Input() entityName: string;
   @Input() gridName: string;
+
+  newRowData: any;
+  addRowIndex: number;
 
   rowData: any;
   columnDefs: ColDef[];
@@ -103,6 +105,8 @@ export class DDMTGridComponent implements OnInit {
           next: data.next_page,
           previous: data.prev_page
         });
+        this.addRowIndex = null;
+        this.newRowData = null;
       },
       (err) => {
         const AuthHTTPCodes = [401, 403];
@@ -132,25 +136,15 @@ export class DDMTGridComponent implements OnInit {
           this.entityName,
           event.data
         );
-      } else if (event.data) {
-        // If we don't have an id make a post (create new data)
-        let missingProps = [];
-        if (schema.required) {
-          missingProps = schema.required.filter(prop => !Object.prototype.hasOwnProperty.call(event.data, prop));
-        }
-
-        if (!missingProps.length) {
-          this.ddmtLibService.createRow(
-            this.apiUrl,
-            this.authentication,
-            this.entityName,
-            event.data
-          );
-        } else {
-          alert(`Missing required properties: ${missingProps}`);
-        }
       }
     });
+  }
+
+  onEditStopped(event: CellEditingStoppedEvent): void {
+    if (event.data && event.rowIndex === this.addRowIndex) {
+      console.log(event)
+      this.newRowData = event.data;
+    }
   }
 
   /**
@@ -160,6 +154,39 @@ export class DDMTGridComponent implements OnInit {
    */
   createNewRow(): void {
     const newRow = {};
-    this.agGrid.api.applyTransaction({ add: [newRow] });
+    const transaction = this.gridOptions.api.applyTransaction({ add: [newRow] });
+    this.addRowIndex = transaction.add[0].rowIndex;
+  }
+
+  /**
+   * Saves a new row to the server.
+   */
+  saveNewRow(): void {
+    if (!this.newRowData) {
+      return;
+    }
+
+    this.ddmtLibService.apiSpec.subscribe(apiSpec => {
+      const entity = capitalize(pluralize(this.entityName, 1));
+      const schema = apiSpec.schemas[entity];
+
+      let missingProps = [];
+      if (schema.required) {
+        missingProps = schema.required.filter(prop => !Object.prototype.hasOwnProperty.call(this.newRowData, prop));
+      }
+
+      if (!missingProps.length) {
+        this.ddmtLibService.createRow(
+          this.apiUrl,
+          this.authentication,
+          this.entityName,
+          this.newRowData
+        );
+
+        this.newRowData = null;
+      } else {
+        alert(`Missing required properties: ${missingProps}`);
+      }
+    });
   }
 }

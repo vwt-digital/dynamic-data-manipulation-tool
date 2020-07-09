@@ -1,6 +1,7 @@
-<div class="container">
+<div class="ddmt-pagination-container">
   <div class="chunkSizeOptions">
     <input
+      class="ddmt-input"
       type="number"
       placeholder="Chunk Size"
       min=1
@@ -8,10 +9,12 @@
       [(ngModel)]="chunkSize"
       (keydown.enter)="confirmChunkSize()"
     >
-    <button [disabled]="disabled" type="submit" (click)="confirmChunkSize()">Set chunk size</button>
+    <button class="ddmt-button" [disabled]="disabled" type="submit" (click)="confirmChunkSize()">Set chunk size</button>
   </div>
-  <button (click)="requestRefresh()" [disabled]="disabled">Refresh</button>
-  <button class="back" [disabled]="!page.previous || pageIdx === 1 || disabled" (click)="previousPage()"><</button>
-  <button class="unclickable">CHUNK {{pageIdx}} OF {{ !page.next && pageIdx === 1 ? '1' : 'MANY'}}</button>
-  <button class="forward" [disabled]="!page.next || disabled" (click)="nextPage()">></button>
+  <button class="ddmt-button" (click)="requestRefresh()" [disabled]="disabled">Refresh</button>
+  <div class="navigation">
+    <button class="ddmt-button back" [disabled]="!page.previous || pageIdx === 1 || disabled" (click)="previousPage()"><</button>
+    <button class="ddmt-button unclickable">CHUNK {{pageIdx}} OF {{ !page.next && pageIdx === 1 ? '1' : 'MANY'}}</button>
+    <button class="ddmt-button forward" [disabled]="!page.next || disabled" (click)="nextPage()">></button>
+  </div>
 </div>

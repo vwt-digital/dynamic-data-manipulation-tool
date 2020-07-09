@@ -8,8 +8,7 @@ import { ICellRendererAngularComp } from 'ag-grid-angular';
   styleUrls: ['./checkbox-cell.component.scss']
 })
 export class CheckboxCellComponent implements ICellRendererAngularComp {
-
-  @ViewChild('.checkbox', { static: true }) checkbox: ElementRef;
+  @ViewChild('.checkbox', { static: false }) checkbox: ElementRef;
 
   public params: ICellRendererParams;
   public disabled: boolean;

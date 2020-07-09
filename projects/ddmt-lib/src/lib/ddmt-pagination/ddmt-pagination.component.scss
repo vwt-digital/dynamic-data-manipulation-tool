@@ -1,37 +1,45 @@
-.container {
+.ddmt-pagination-container {
   display: inline-block;
   float: right;
   height: 100%;
-}
 
-.unclickable {
-  cursor: default;
-  margin: 0 auto;
-  border-radius: 0;
-  outline: 0;
-  filter: grayscale(1);
-}
+  .chunkSizeOptions {
+    display: inline-flex;
+    flex-wrap: none;
+    flex-direction: row;
+    height: 32px;
 
-.forward {
-  margin-left: 0;
-  border-radius: 0 3px 3px 0;
-}
+    input {
+      border-radius: 3px 0 0 3px;
+      border-right: 0;
+    }
 
-.back {
-  margin-right: 0;
-  border-radius: 3px 0 0 3px;
-}
-
-.chunkSizeOptions {
-  display: inline-block;
-
-  input {
-    border-radius: 3px 0 0 3px;
-    border-right: 0;
+    button {
+      border-radius: 0 3px 3px 0;
+      border-left: 0;
+    }
   }
 
-  button {
-    border-radius: 0 3px 3px 0;
-    border-left: 0;
+
+  .navigation {
+    display: inline-block;
+
+    .unclickable {
+      cursor: default;
+      margin: 0 auto;
+      border-radius: 0;
+      outline: 0;
+      filter: grayscale(1);
+    }
+
+    .forward {
+      margin-left: 0;
+      border-radius: 0 3px 3px 0;
+    }
+
+    .back {
+      margin-right: 0;
+      border-radius: 3px 0 0 3px;
+    }
   }
 }

@@ -1,6 +1,4 @@
-
-
-.container {
+.ddmt-grid-container {
   display: grid;
   grid-template-rows: max-content 1fr;
   grid-template-columns: 1fr;
@@ -16,8 +14,8 @@
       width: 100%;
     }
   }
-}
 
-.notification {
-  display: inline;
+  .header .notification {
+    display: inline;
+  }
 }
