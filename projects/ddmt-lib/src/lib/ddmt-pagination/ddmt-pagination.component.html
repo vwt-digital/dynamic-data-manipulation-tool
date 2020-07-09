@@ -12,6 +12,6 @@
   </div>
   <button (click)="requestRefresh()" [disabled]="disabled">Refresh</button>
   <button class="back" [disabled]="!page.previous || pageIdx === 1 || disabled" (click)="previousPage()"><</button>
-  <button class="unclickable">CHUNK {{pageIdx}} OF MANY</button>
+  <button class="unclickable">CHUNK {{pageIdx}} OF {{ !page.next && pageIdx === 1 ? '1' : 'MANY'}}</button>
   <button class="forward" [disabled]="!page.next || disabled" (click)="nextPage()">></button>
 </div>

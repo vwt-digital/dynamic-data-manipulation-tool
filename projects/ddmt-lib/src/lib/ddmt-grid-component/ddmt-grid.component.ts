@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
   ]
 })
 export class DDMTGridComponent implements OnInit {
-  @ViewChild('agGrid') agGrid: AgGridAngular;
+  @ViewChild('agGrid', { static: true }) agGrid: AgGridAngular;
   gridOptions: GridOptions;
 
   /**
@@ -132,14 +132,14 @@ export class DDMTGridComponent implements OnInit {
           this.entityName,
           event.data
         );
-      } else {
+      } else if (event.data) {
         // If we don't have an id make a post (create new data)
         let missingProps = [];
         if (schema.required) {
           missingProps = schema.required.filter(prop => !Object.prototype.hasOwnProperty.call(event.data, prop));
         }
 
-        if (!missingProps.length && event.data) {
+        if (!missingProps.length) {
           this.ddmtLibService.createRow(
             this.apiUrl,
             this.authentication,

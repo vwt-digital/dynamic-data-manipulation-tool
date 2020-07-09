@@ -16,8 +16,9 @@
     "build": "ng build --prod"
   },
   "peerDependencies": {
-    "@angular/common": "^9.1.9",
-    "@angular/core": "^9.1.9",
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
     "ag-grid-angular": "^23.2.0",
     "ag-grid-community": "^23.2.0",
     "ag-grid-enterprise": "^23.2.0",

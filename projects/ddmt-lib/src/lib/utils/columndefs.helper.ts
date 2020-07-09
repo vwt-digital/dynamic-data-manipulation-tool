@@ -46,10 +46,16 @@ function schemaToColDefs(schema: any): ColDef[] {
 
   for (const key of Object.keys(schema.properties)) {
     const property = schema.properties[key];
+    const id = schema['x-db-table-id'];
+
+    if (key === id) {
+      property.readonly = true;
+    }
+
     colDefs.push({
       headerName: namify(key),
       field: key,
-      editable: property.readonly ? property.readonly : true,
+      editable: property.readonly ? !property.readonly : true,
       ...setTypeBasedOptions(property.type)
     });
   }

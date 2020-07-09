@@ -22,6 +22,7 @@ import { DDMTPaginationComponent } from './ddmt-pagination/ddmt-pagination.compo
     FormsModule,
     CommonModule
   ],
+  entryComponents: [CheckboxCellComponent],
   providers: [DDMTLibService],
   exports: [DDMTGridComponent]
 })
