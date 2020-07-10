@@ -1,0 +1,31 @@
+{
+  "name": "@vwt-digital/ddmt-lib",
+  "version": "0.0.4",
+  "description": "The Dynamic Data Manipulation Tool Angular libary.",
+  "author": "Selene Blok <selene.blok@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vwt-digital/dynamic-data-manipulation-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vwt-digital/dynamic-data-manipulation-tool/issues"
+  },
+  "homepage": "https://github.com/vwt-digital/dynamic-data-manipulation-tool",
+  "license": "MIT",
+  "scripts": {
+    "build": "ng build --prod"
+  },
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0",
+    "@angular/forms": "^8.0.0",
+    "ag-grid-angular": "^23.2.0",
+    "ag-grid-community": "^23.2.0",
+    "ag-grid-enterprise": "^23.2.0",
+    "pluralize": "^8.0.0"
+  },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
+  "schematics": "./schematics/collection.json"
+}

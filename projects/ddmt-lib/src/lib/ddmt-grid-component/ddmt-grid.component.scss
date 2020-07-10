@@ -1,0 +1,21 @@
+.ddmt-grid-container {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  grid-template-columns: 1fr;
+  height: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+
+  .table {
+    height: 100%;
+
+    .grid {
+      height: inherit;
+      width: 100%;
+    }
+  }
+
+  .header .notification {
+    display: inline;
+  }
+}

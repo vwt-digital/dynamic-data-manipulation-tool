@@ -1,0 +1,20 @@
+<div class="ddmt-pagination-container">
+  <div class="chunkSizeOptions">
+    <input
+      class="ddmt-input"
+      type="number"
+      placeholder="Chunk Size"
+      min=1
+      [disabled]="disabled"
+      [(ngModel)]="chunkSize"
+      (keydown.enter)="confirmChunkSize()"
+    >
+    <button class="ddmt-button" [disabled]="disabled" type="submit" (click)="confirmChunkSize()">Set chunk size</button>
+  </div>
+  <button class="ddmt-button" (click)="requestRefresh()" [disabled]="disabled">Refresh</button>
+  <div class="navigation">
+    <button class="ddmt-button back" [disabled]="!page.previous || pageIdx === 1 || disabled" (click)="previousPage()"><</button>
+    <button class="ddmt-button unclickable">CHUNK {{pageIdx}} OF {{ !page.next && pageIdx === 1 ? '1' : 'MANY'}}</button>
+    <button class="ddmt-button forward" [disabled]="!page.next || disabled" (click)="nextPage()">></button>
+  </div>
+</div>

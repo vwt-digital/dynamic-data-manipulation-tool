@@ -1,0 +1,171 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "ddmt-lib": {
+      "projectType": "library",
+      "root": "projects/ddmt-lib",
+      "sourceRoot": "projects/ddmt-lib/src",
+      "prefix": "dat",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/ddmt-lib/tsconfig.lib.json",
+            "project": "projects/ddmt-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/ddmt-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/ddmt-lib/src/test.ts",
+            "tsConfig": "projects/ddmt-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/ddmt-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/ddmt-lib/tsconfig.lib.json",
+              "projects/ddmt-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "test-ddmt": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/test-ddmt",
+      "sourceRoot": "projects/test-ddmt/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/test-ddmt",
+            "index": "projects/test-ddmt/src/index.html",
+            "main": "projects/test-ddmt/src/main.ts",
+            "polyfills": "projects/test-ddmt/src/polyfills.ts",
+            "tsConfig": "projects/test-ddmt/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/test-ddmt/src/favicon.ico",
+              "projects/test-ddmt/src/assets"
+            ],
+            "styles": [
+              "projects/test-ddmt/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/test-ddmt/src/environments/environment.ts",
+                  "with": "projects/test-ddmt/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "test-ddmt:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "test-ddmt:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "test-ddmt:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/test-ddmt/src/test.ts",
+            "polyfills": "projects/test-ddmt/src/polyfills.ts",
+            "tsConfig": "projects/test-ddmt/tsconfig.spec.json",
+            "karmaConfig": "projects/test-ddmt/karma.conf.js",
+            "assets": [
+              "projects/test-ddmt/src/favicon.ico",
+              "projects/test-ddmt/src/assets"
+            ],
+            "styles": [
+              "projects/test-ddmt/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/test-ddmt/tsconfig.app.json",
+              "projects/test-ddmt/tsconfig.spec.json",
+              "projects/test-ddmt/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/test-ddmt/e2e/protractor.conf.js",
+            "devServerTarget": "test-ddmt:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "test-ddmt:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "cli": {
+    "analytics": "d5f1f6cb-d7f8-4d65-8f4f-58d64988cbb3"
+  },
+  "defaultProject": "ddmt-lib"
+}

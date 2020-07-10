@@ -1,0 +1,26 @@
+<div class="ddmt-grid-container">
+  <div class="header">
+    <button class="ddmt-button" (click)="createNewRow()" [disabled]="inputsDisabled">Create new row</button>
+    <button class="ddmt-button" (click)="saveNewRow()" [disabled]="inputsDisabled">Save new row</button>
+    <button class="ddmt-button" (click)="clearPreferences()" [disabled]="inputsDisabled">Clear Preferences</button>
+    <p class="notification" *ngIf="inputsDisabled">You are not authorized!</p>
+    <dat-ddmt-pagination
+      [disabled]="inputsDisabled"
+      [page]="page | async"
+      [gridName]="gridName"
+      (refresh)="setData()"
+      (nextAction)="setData($event)">
+    </dat-ddmt-pagination>
+  </div>
+  <div class="table">
+    <ag-grid-angular
+      #agGrid
+      [ngClass]="[theme, 'grid']"
+      [gridOptions]="gridOptions"
+      [rowData]="rowData"
+      [columnDefs]="columnDefs"
+      (cellEditingStopped)="onEditStopped($event)"
+      (cellValueChanged)="syncToServer($event)">
+    </ag-grid-angular>
+  </div>
+</div>
