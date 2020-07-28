@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "eslint . -c ./.eslintrc.json --ext .ts",
     "e2e": "ng e2e",
-    "release": "release-it --ci -d --no-git.requireCleanWorkingDir"
+    "release": "release-it --ci -d"
   },
   "private": false,
   "dependencies": {
