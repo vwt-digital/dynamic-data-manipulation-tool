@@ -22,6 +22,16 @@ steps:
     args:
       - 'run'
       - 'build'
+  # Get git history since it's required by semantic-release
+  - id: get-git-history
+    name: gcr.io/cloud-builders/git
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        git clone https://github.com/vwt-digital/dynamic-data-manipulation-tool.git --no-checkout
+        cp -r dynamic-data-manipulation-tool/.git .
+        rm -rf dynamic-data-manipulation-tool
   # Publish package.
   - name: 'node:12'
     entrypoint: 'bash'
@@ -30,4 +40,4 @@ steps:
       - |
         export GH_TOKEN=$(cat "gh_token.txt")
         export NPM_TOKEN=$(cat "npm_token.txt")
-        npm run semantic-release
+        # npm run semantic-release
