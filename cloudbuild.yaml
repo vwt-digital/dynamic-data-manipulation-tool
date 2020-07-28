@@ -22,6 +22,17 @@ steps:
     args:
       - 'run'
       - 'build'
+  # Get git history since it's required by semantic-release
+  - id: get-git-history
+    name: gcr.io/cloud-builders/git
+    entrypoint: bash
+    args:
+      - '-c'
+      - |
+        git clone https://github.com/vwt-digital/dynamic-data-manipulation-tool.git --no-checkout
+        mv dynamic-data-manipulation-tool/.git .
+        git fetch --unshallow
+        rm -rf dynamic-data-manipulation-tool
   # Publish package.
   - name: 'node:12'
     entrypoint: 'bash'
