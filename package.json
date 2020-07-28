@@ -1,6 +1,6 @@
 {
   "name": "@vwt-digital/ddmt-lib",
-  "version": "0.0.4-beta.2",
+  "version": "0.0.4",
   "description": "The Dynamic Data Manipulation Tool's Angular libary.",
   "author": "Selene Blok <selene.blok@gmail.com>",
   "scripts": {
@@ -10,7 +10,7 @@
     "test": "ng test",
     "lint": "eslint . -c ./.eslintrc.json --ext .ts",
     "e2e": "ng e2e",
-    "semantic-release": "semantic-release -d",
+    "semantic-release": "semantic-release",
     "commit": "git-cz"
   },
   "husky": {
