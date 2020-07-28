@@ -40,4 +40,4 @@ steps:
       - |
         export GH_TOKEN=$(cat "gh_token.txt")
         export NPM_TOKEN=$(cat "npm_token.txt")
-        # npm run semantic-release
+        npm run semantic-release
