@@ -30,8 +30,7 @@ steps:
       - '-c'
       - |
         git clone https://github.com/vwt-digital/dynamic-data-manipulation-tool.git --no-checkout
-        mv dynamic-data-manipulation-tool/.git .
-        git fetch --unshallow
+        cp -r dynamic-data-manipulation-tool/.git .
         rm -rf dynamic-data-manipulation-tool
   # Publish package.
   - name: 'node:12'
@@ -41,4 +40,4 @@ steps:
       - |
         export GH_TOKEN=$(cat "gh_token.txt")
         export NPM_TOKEN=$(cat "npm_token.txt")
-        npm run semantic-release
+        # npm run semantic-release
