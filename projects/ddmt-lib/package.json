@@ -12,9 +12,6 @@
   },
   "homepage": "https://github.com/vwt-digital/dynamic-data-manipulation-tool",
   "license": "MIT",
-  "scripts": {
-    "build": "ng build --prod"
-  },
   "peerDependencies": {
     "@angular/common": "^8.0.0",
     "@angular/core": "^8.0.0",
