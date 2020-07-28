@@ -1,0 +1,31 @@
+---
+timeout: 1800s
+steps:
+  # Load secrets
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        gcloud secrets versions access latest --secret="$PROJECT_ID"-github-token > gh_token.txt
+        NPM_TOKEN=$(gcloud secrets versions access latest --secret="$PROJECT_ID"-npm-token)
+        echo "//registry.npmjs.org/:_authToken=$(NPM_TOKEN)" > .npmrc
+  # Install deps.
+  - name: 'node:12'
+    entrypoint: 'npm'
+    args:
+      - 'install'
+  # Run build
+  - name: 'node:12'
+    entrypoint: 'npm'
+    args:
+      - 'run'
+      - 'build'
+  # Publish package.
+  - name: 'node:12'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        GITHUB_TOKEN=$(cat "gh_token.txt")
+        npm run release

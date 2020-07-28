@@ -1,17 +1,18 @@
 {
-  "name": "ddmt",
-  "version": "0.0.0",
+  "name": "@vwt-digital/ddmt-lib",
+  "version": "1.0.0",
   "description": "The Dynamic Data Manipulation Tool's Angular libary.",
   "author": "Selene Blok <selene.blok@gmail.com>",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --prod",
     "test": "ng test",
     "lint": "eslint . -c ./.eslintrc.json --ext .ts",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "release": "release-it --ci -d --no-git.requireCleanWorkingDir"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "^8.0.0",
     "@angular/common": "^8.0.0",
@@ -52,7 +53,12 @@
     "karma-jasmine-html-reporter": "^1.4.2",
     "ng-packagr": "^9.1.5",
     "protractor": "~5.4.3",
+    "release-it": "^13.6.5",
     "tslint": "~6.1.0",
     "typescript": "~3.5.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vwt-digital/dynamic-data-manipulation-tool.git"
   }
 }

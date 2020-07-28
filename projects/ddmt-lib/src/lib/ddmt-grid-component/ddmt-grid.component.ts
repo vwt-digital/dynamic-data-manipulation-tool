@@ -18,7 +18,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class DDMTGridComponent implements OnInit {
   @ViewChild('agGrid', { static: false }) agGrid;
-  gridOptions: GridOptions;
+  public gridOptions: GridOptions;
 
   /**
    * The `theme` input allows for setting an ag-grid theme.
@@ -142,7 +142,6 @@ export class DDMTGridComponent implements OnInit {
 
   onEditStopped(event: CellEditingStoppedEvent): void {
     if (event.data && event.rowIndex === this.addRowIndex) {
-      console.log(event)
       this.newRowData = event.data;
     }
   }
@@ -154,7 +153,7 @@ export class DDMTGridComponent implements OnInit {
    */
   createNewRow(): void {
     const newRow = {};
-    const transaction = this.gridOptions.api.applyTransaction({ add: [newRow] });
+    const transaction = this.agGrid.api.applyTransaction({ add: [newRow] });
     this.addRowIndex = transaction.add[0].rowIndex;
   }
 
