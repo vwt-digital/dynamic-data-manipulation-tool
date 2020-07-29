@@ -1,5 +1,5 @@
 {
-  "ci": true,
+  "ci": false,
   "pkgRoot": "dist/ddmt-lib",
   "plugins": [
     "@semantic-release/commit-analyzer",

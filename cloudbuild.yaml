@@ -29,7 +29,7 @@ steps:
     args:
       - '-c'
       - |
-        git clone https://github.com/vwt-digital/dynamic-data-manipulation-tool.git --no-checkout
+        git clone https://github.com/vwt-digital/dynamic-data-manipulation-tool.git --branch=master --no-checkout
         cp -r dynamic-data-manipulation-tool/.git .
         rm -rf dynamic-data-manipulation-tool
   # Publish package.
